@@ -1,0 +1,33 @@
+project: PepOnco
+
+models:
+  peponco:
+    checkpoints:
+      - models/cvae_conditional_seed42.pt
+      - models/cvae_conditional_seed52.pt
+      - models/cvae_conditional_seed62.pt
+  baselines:
+    conditional_gru:
+      - models/gru_conditional_seed42.pt
+      - models/gru_conditional_seed52.pt
+      - models/gru_conditional_seed62.pt
+    unconditional_gru:
+      - models/gru_unconditional_seed42.pt
+      - models/gru_unconditional_seed52.pt
+      - models/gru_unconditional_seed62.pt
+    unconditional_vae:
+      - models/vae_unconditional_seed42.pt
+      - models/vae_unconditional_seed52.pt
+      - models/vae_unconditional_seed62.pt
+
+generation:
+  outputs_raw: results/generation/generated_candidates_raw.csv
+  outputs_evaluated: results/generation/generated_candidates_evaluated.csv
+
+evaluation_metrics:
+  - validity
+  - uniqueness
+  - exact_novelty
+  - condition_fidelity
+  - nearest_neighbor_similarity
+  - reference_range_plausibility

@@ -1,0 +1,25 @@
+project: PepOnco
+
+input:
+  evaluated_candidates: results/generation/generated_candidates_evaluated.csv
+
+filters:
+  remove_invalid_residues: true
+  remove_duplicates: true
+  remove_exact_train_overlap: true
+  control_low_complexity: true
+  control_homopolymer_burden: true
+  control_high_nearest_neighbor_similarity: true
+
+scoring:
+  components:
+    - novelty
+    - descriptor_plausibility
+    - condition_fidelity
+    - diversity
+  final_score: weighted_sum
+
+outputs:
+  shortlist: results/prioritization/shortlist_24_with_step9_annotations.csv
+  final_panel: results/tables/Supplementary_Table_S1_final_12_candidates.csv
+  contextual_support: results/contextual/final_panel_contextual_support_detail.csv

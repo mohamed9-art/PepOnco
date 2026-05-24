@@ -1,0 +1,27 @@
+project: PepOnco
+model: conditional_cvae
+seeds: [42, 52, 62]
+
+data:
+  standardized_corpus: data/processed/peponco_standardized_corpus.csv
+  max_sequence_length: 60
+  condition_classes: 27
+
+splitting:
+  method: similarity_aware_3mer_jaccard
+  jaccard_threshold: 0.55
+  split_strategy: cluster_level_assignment
+
+training:
+  framework: pytorch
+  objective:
+    - reconstruction_loss
+    - kl_regularization
+    - auxiliary_condition_supervision
+  kl_strategy:
+    - kl_scheduling
+    - free_bits_regularization
+  decoder_input_dropout: true
+
+outputs:
+  model_checkpoints: models/
